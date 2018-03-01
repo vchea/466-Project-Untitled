@@ -22,13 +22,16 @@ public class LoginPage extends AppCompatActivity {
     //Pattern Matching Variables
     DbHelper OrganizeMyLifeDB;
 
+    EditText username;
+    EditText password;
+    Button btnLogin;
+    Button btnRegister;
+
+
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
     public static final Pattern VALID_PASSWORD_REGEX =
             Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$", Pattern.CASE_INSENSITIVE);
-
-    EditText username, password;
-    Button btnLogin, btnRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +39,12 @@ public class LoginPage extends AppCompatActivity {
         setContentView(R.layout.activity_login_page);
 
         OrganizeMyLifeDB = new DbHelper(this);
-        //OrganizeMyLifeDB.addData("Newfiremoy@gmail.com","pizza101");
+
         //Object Variables
-        username = (EditText) findViewById(R.id.loginUserID);
-        password = (EditText) findViewById(R.id.loginUserPwd);
-        btnLogin = (Button) findViewById(R.id.buttonLogin);
-        btnRegister = (Button) findViewById(R.id.buttonRegister);
+        username = findViewById(R.id.loginUserID);
+        password = findViewById(R.id.loginUserPwd);
+        btnLogin = findViewById(R.id.buttonLogin);
+        btnRegister = findViewById(R.id.buttonRegister);
 
         /*
          * Listens to clicks on the {@code btnLogin }
@@ -57,15 +60,16 @@ public class LoginPage extends AppCompatActivity {
              * bring the user to the main app page, or else it will
              * prompt a toast to the user of invalid login credentials
              */
-            public void onClick(View view){
+            public void onClick(View view) {
                 String un = username.getText().toString();
                 String pwd = password.getText().toString();
-                if(OrganizeMyLifeDB.verification(un,pwd)){
+                boolean valid = OrganizeMyLifeDB.verification(un,pwd);
+                if(valid) {
                     Intent intent = new Intent(LoginPage.this, MainPage.class);
                     startActivity(intent);
                 }
                 else{
-                    Toast.makeText(getApplicationContext(),"Incorrect Login",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Incorrect Login", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -81,6 +85,12 @@ public class LoginPage extends AppCompatActivity {
                     startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        OrganizeMyLifeDB.addData("Luke", "C");
     }
     /**
      * Validates the @code username and @code password texts entered by the user
