@@ -20,6 +20,7 @@
             android:name=".MainPage"
             android:label="@string/app_name" />
         <activity android:name=".Registration" />
+        <activity android:name=".EditInfo"></activity>
     </application>
 
 </manifest>
