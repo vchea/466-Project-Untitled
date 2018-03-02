@@ -90,7 +90,7 @@ public class LoginPage extends AppCompatActivity {
     @Override
     public void onStart(){
         super.onStart();
-        OrganizeMyLifeDB.addData("Luke", "C");
+        OrganizeMyLifeDB.addData("", "");
     }
     /**
      * Validates the @code username and @code password texts entered by the user
