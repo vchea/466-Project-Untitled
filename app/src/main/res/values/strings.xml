@@ -3,4 +3,10 @@
     <string name="Login">Login</string>
     <string name="Register">Register</string>
     <string name="InvalidLogin">Invalid Login</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="title">Title</string>
+    <string name="hour">Hour</string>
+    <string name="minute">Minute</string>
+    <string name="description">Description</string>
 </resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/addItem"
+        android:icon="@mipmap/ic_alarm_add_black_24dp"
+        android:title="Add Event"
+        >
+    </item>
+    <item
+        android:id="@+id/todo"
+        android:icon="@mipmap/ic_chrome_reader_mode_black_24dp"
+        android:title="To Do List"
+        >
+    </item>
+    <item
+        android:id="@+id/settings"
+        android:icon="@mipmap/ic_settings_black_24dp"
+        android:title="Settings"
+        >
+    </item>
+    <item
+        android:id="@+id/logout"
+        android:icon="@mipmap/ic_account_circle_black_24dp"
+        android:title="Logout"
+        >
+    </item>
+
+</menu>
