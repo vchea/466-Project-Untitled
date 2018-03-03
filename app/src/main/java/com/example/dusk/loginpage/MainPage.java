@@ -88,6 +88,10 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
             intent.putExtra("events", eventList);
             startActivity(intent);
         }
+        if (id == R.id.logout){
+            Intent intent = new Intent(this, LoginPage.class);
+            startActivity(intent);
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
         drawer.closeDrawer(GravityCompat.START);
