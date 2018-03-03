@@ -28,7 +28,7 @@ public class EditInfo extends AppCompatActivity {
     //Object Variables
     EditText username = (EditText) findViewById(R.id.nameText);
     EditText password = (EditText) findViewById(R.id.passwordText);
-    EditText newpassword = (EditText) findViewById(R.id.newPasswordText);
+    EditText newPassword = (EditText) findViewById(R.id.newPasswordText);
     EditText email = (EditText) findViewById(R.id.emailText);
     EditText phone = (EditText) findViewById(R.id.phoneText);
 
