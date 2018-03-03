@@ -3,8 +3,10 @@ package com.example.dusk.loginpage;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 
 /*CREATED BY TRAJON FELTON
@@ -30,9 +32,9 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String UTCOL1 = "ID";
     private static final String UTCOL2 = "USERNAME";
     private static final String UTCOL3 = "PASSWORD";
-    private static final String UTCOL4 = "FIRST_NAME";
-    private static final String UTCOL5 = "LAST_NAME";
-    private static final String UTCOL6 = "PHN_NUMBER";
+    private static final String UTCOL4 = "FIRSTNAME";
+    private static final String UTCOL5 = "LASTNAME";
+    private static final String UTCOL6 = "PHONE";
 
 
     private static final String TASK_TABLE = "TASK";
@@ -51,23 +53,23 @@ public class DbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String createTable = "CREATE TABLE " + USER_TABLE + " (" +
-                "ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "USERNAME TEXT NOT NULL UNIQUE," +
-                "PASSWORD TEXT NOT NULL, " +
-                "FIRST_NAME NOT NULL, " +
-                "LAST_NAME NOT NULL, " +
-                "PHN_NUMBER" +
+                "ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "USERNAME, " +
+                "PASSWORD, " +
+                "FIRSTNAME, " +
+                "LASTNAME, " +
+                "PHONE" +
                 ")";
         sqLiteDatabase.execSQL(createTable);
-        createTable = "CREATE TABLE " + TASK_TABLE + " (" +
-                "USERNAME NOT NULL PRIMARY KEY" +
-                "taskName NOT NULL, " +
+        String createAnother = "CREATE TABLE " + TASK_TABLE + " (" +
+                "USERNAME NOT NULL PRIMARY KEY," +
+                " taskName NOT NULL, " +
                 "taskStatus NOT NULL, " +
                 "taskSubmitted, " +
                 "taskCompleted, " +
                 "taskGroup" +
                 ")";
-        sqLiteDatabase.execSQL(createTable);
+        sqLiteDatabase.execSQL(createAnother);
     }
 
     //onUpgrade Method
@@ -88,7 +90,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
         //ContentValues is used ot create an object to put into the insert method
         ContentValues contentValues = new ContentValues();
-        contentValues.put(UTCOL2, username);
+        contentValues.put(UTCOL2,username);
         contentValues.put(UTCOL3, pwd);
         contentValues.put(UTCOL4, fn);
         contentValues.put(UTCOL5, ln);
@@ -106,12 +108,23 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public boolean verification(String username, String pwd){
         SQLiteDatabase db = this.getReadableDatabase();
-        String Query = String.format("SELECT * FROM %s WHERE %s = \'%s\' AND %s = \'%s\'",USER_TABLE, UTCOL2, username, UTCOL3, pwd);
+        //String Query = String.format("SELECT * FROM %s WHERE %s = \'%s\' AND %s = \'%s\'",USER_TABLE, UTCOL2, username, UTCOL3, pwd);
+        String Query = String.format("SELECT * FROM USER_TABLE");
         Cursor result = db.rawQuery(Query,null);
-        if(result.getCount() == 1)
+        if(result.getCount() >= 1) {
+            while(result.moveToNext()){
+                String s = result.getString(1);
+                Log.d("Count", s);
+            }
             return true;
-        else
+        }
+        else {
+            Log.d("Count", String.valueOf(result.getCount()));
+            Log.d("Count", username);
+            Log.d("Count", pwd);
+
             return false;
+        }
     }
 }
 
